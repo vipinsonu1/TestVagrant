@@ -1,3 +1,4 @@
+import { expect, Locator } from "@playwright/test";
 class JustnowPlayedStore {
   private capacity: number;
   private store: Record<string, string[]>;
@@ -37,10 +38,12 @@ store.playSong("user1", "S1");
 store.playSong("user1", "S2");
 store.playSong("user1", "S3");
 console.log(store.getJustNowPlayed("user1")); 
-
+// Here I assserted played songs S1, S2, S3.
+expect(store.getJustNowPlayed("user1")).toEqual([ 'S1', 'S2', 'S3' ]);
 store.playSong("user1", "S4");
+// here I assert new played songs.
+ expect(store.getJustNowPlayed("user1")).toContain('S4');
 console.log(store.getJustNowPlayed("user1")); 
-
 store.playSong("user1", "S2");
 console.log(store.getJustNowPlayed("user1")); 
 
